@@ -1,0 +1,15 @@
+# Mappa böngészés letiltása, pl. nem tudod megnyitni a localhost/images mappát, de megnyithatod a localhost/images/profilkep.png-t
+Options -Indexes
+# A followSymlinks szimbolikus linkekeket engedélyez (pl. gyökér/public/storage nem létezik de hivatkozik a gyökér/storage mappára, így a localhost/storage meghívásakor valójában a gyökér/storage töltődik be)
+Options -MultiViews +FollowSymLinks
+
+# Engedélyezi a linkátírást a htaccess segítségével
+RewriteEngine On
+
+# URL végéről csapjuk le a .php végződést,  pl. localhost/user.php -> helyette: localhost/user
+RewriteRule ^(.*).php$ /$1
+
+# MINDEN mappa és MINDEN fájl meghívásakor az index.php fut le, pl. localhost/images vagy lovalhost/user vagy localhost/user.php esetén IS az index.php fut le
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php
